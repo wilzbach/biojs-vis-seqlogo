@@ -1,6 +1,5 @@
 var renderWithText = require("./render_with_text.js");
 var renderWithRect = require("./render_with_rects.js");
-var EasyScroller = require("../scroller/EasyScroller.js");
 var jbone = require("jbone");
 
 // the main render function that draws the logo based on the provided options.

@@ -1,8 +1,8 @@
 {
   "name": "biojs-vis-seqlogo",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A sequence logo visualizer",
-  "main": "src/index.js",
+  "main": "index.js",
   "dependencies": {
     "backbone-viewj": "^1.0.1",
     "jbone": "^1.0.19",
