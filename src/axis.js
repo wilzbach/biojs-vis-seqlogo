@@ -4,13 +4,13 @@ module.exports = {
       if (this.display_ali_map) {
         label = "Alignment Column";
       }
-      $(this.called_on).find('.logo_xaxis').remove();
-      $(this.called_on).prepend('<div class="logo_xaxis" class="centered" style="margin-left:40px"><p class="xaxis_text" style="width:10em;margin:1em auto">' + label + '</p></div>');
+      this.called_on.find('.logo_xaxis').remove();
+      this.called_on.prepend('<div class="logo_xaxis" class="centered" style="margin-left:40px"><p class="xaxis_text" style="width:10em;margin:1em auto">' + label + '</p></div>');
 
     },
     render_y_axis_label: function () {
       //attach a canvas for the y-axis
-      $(this.dom_element).parent().before('<canvas class="logo_yaxis" height="'+this.options.height+'" width="55"></canvas>');
+      this.dom_element.parent().before('<canvas class="logo_yaxis" height="'+this.options.height+'" width="55"></canvas>');
       var canvas = $(this.called_on).find('.logo_yaxis'),
       top_pix_height = 0,
       bottom_pix_height = 0,

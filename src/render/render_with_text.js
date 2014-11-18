@@ -40,9 +40,9 @@ module.exports = function (start, end, context_num, fontsize) {
         j = 0,
         color = null;
 
-        for (j = 0; j < letters; j++) {
+        for(var j in column){
           var letter = column[j],
-          values = letter.split(':', 2),
+          values = [j,letter];
           x_pos = x + (this.zoomed_column / 2),
           letter_height = null;
 
@@ -61,14 +61,15 @@ module.exports = function (start, end, context_num, fontsize) {
 
         // render the letters in reverse order so that the larger letters on the top
         // don't clobber the smaller letters below them.
-        for (j = letters; j >= 0; j--) {
-          if (col_positions[j] && this.letters[column[j][0]]) {
+        //for (j = letters; j >= 0; j--) {
+        for(var j in column){
+          if (col_positions[j] && this.letters[j]) {
             if (this.colorscheme === 'consensus') {
-              color = this.cmap[i - 1][column[j][0]] || "#7a7a7a";
+              color = this.cmap[i - 1][j] || "#7a7a7a";
             } else {
               color = null;
             }
-            this.letters[column[j][0]].draw(this.contexts[context_num], col_positions[j][0], col_positions[j][1], col_positions[j][2], col_positions[j][3], color);
+            this.letters[j].draw(this.contexts[context_num], col_positions[j][0], col_positions[j][1], col_positions[j][2], col_positions[j][3], color);
           }
         }
       }

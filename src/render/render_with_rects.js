@@ -26,9 +26,8 @@ module.exports = function (start, end, context_num, borders) {
       previous_neg_height = top_pix_height,
       letters = column.length,
       j = 0;
-      for (j = 0; j < letters; j++) {
-        var letter = column[j],
-        values = letter.split(':', 2);
+      for(var j in column){
+        values = [j,letter];
         if (values[1] > 0.01) {
           var letter_height = parseFloat(values[1]) / this.data.max_height,
           x_pos = x,

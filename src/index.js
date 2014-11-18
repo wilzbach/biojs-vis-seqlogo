@@ -239,7 +239,10 @@ module.exports = view.extend({
     // with the new heights
     this.rendered = [];
     //update the y-axis
-    $(this.called_on).find('.logo_yaxis').remove();
+    if(this.logoYAxis){
+      this.logoYAxis.remove();
+      //this.called_on.find('.logo_yaxis').remove();
+    }
     axis.render_y_axis_label.call(this);
 
     // re-flow and re-render the content
