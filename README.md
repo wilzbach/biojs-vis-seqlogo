@@ -1,6 +1,6 @@
 # hmm-logo
 
-[![NPM version](http://img.shields.io/npm/v/hmm-logo.svg)](https://www.npmjs.org/package/hmm-logo) 
+[![NPM version](http://img.shields.io/npm/v/biojs-vis-seqlogo.svg)](https://www.npmjs.org/package/biojs-vis-seqlogo) 
 
 > JavaScript library for generating interactive canvas logos
 
