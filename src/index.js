@@ -1,7 +1,6 @@
-$ = require("jquery");
 _ = require("underscore");
 
-var ConsensusColors = require("./consensusColors.js");
+//var ConsensusColors = require("./consensusColors.js");
 var canvasSupport = require("./canvasSupport.js");
 var render = require("./render/render.js");
 var Letter = require("./model/letter.js");
@@ -9,6 +8,8 @@ var view = require("backbone-viewj");
 var axis = require("./axis");
 var eventListener = require("./eventListener.js");
 var settings = require("./info/settings.js");
+
+var jbone = require("jbone");
 
 module.exports = view.extend({
 
@@ -43,11 +44,9 @@ module.exports = view.extend({
     this.display_ali_map = 0;
 
     this.alphabet = options.data.alphabet || 'dna';
-    this.dom_element = options.dom_element || $('body');
-    this.called_on = options.called_on || null;
 
     this.start = options.start;
-    this.end = options.end || this.data.height_arr.length;
+    //this.end = options.end || this.data.height_arr.length;
     this.zoom = parseFloat(options.zoom) || 0.4;
     this.default_zoom = this.zoom;
 
@@ -105,13 +104,13 @@ module.exports = view.extend({
     // turn off the insert rows if the hmm used the observed or weighted processing flags.
     if (this.data.processing && /^observed|weighted/.test(this.data.processing)) {
       this.show_inserts = 0;
-      this.info_content_height = 286;
+      this.info_content_height = this.height - 14;
     } else {
       this.show_inserts = 1;
-      this.info_content_height = 256;
+      this.info_content_height = this.height - 44;
     }
     }
-    this.$el = $(this.el);
+    this.$el = jbone(this.el);
 
     this.initDivs();
 
@@ -133,11 +132,11 @@ module.exports = view.extend({
   initDivs: function(){
     var logo_graphic = mk("div");
     logo_graphic.className = "logo_graphic";
-    this.logo_graphic = $(logo_graphic);
+    this.logo_graphic = jbone(logo_graphic);
 
     var container = mk("div");
     container.className = "logo_container";
-    this.container = $(container);
+    this.container = jbone(container);
 
     this.container.append(logo_graphic);
 
@@ -145,11 +144,12 @@ module.exports = view.extend({
     this.$el.append(container);
 
     if(this.options.divider){
-      this.$el.append('<div class="logo_divider"></div>');
+      var divider = mk("div");
+      divider.className = "logo_divider";
+      this.$el.append(divider);
     }
 
-
-    this.dom_element = $(logo_graphic);
+    this.dom_element = jbone(logo_graphic);
     this.called_on = this.$el;
 
     if(this.options.xaxis){
@@ -169,6 +169,7 @@ module.exports = view.extend({
   },
 
   buildAlphabet: function(){
+    /*
     if (this.alphabet === 'aa') {
       var probs_arr = this.data.probs_arr;
       if (probs_arr) {
@@ -176,6 +177,7 @@ module.exports = view.extend({
         this.cmap = cc.color_map(probs_arr);
       }
     }
+    */
 
     //build the letter canvases
     this.letters = {};
@@ -312,7 +314,7 @@ module.exports = view.extend({
     }
 
     // see if we need to zoom or not
-    expected_width = ($(this.called_on).find('.logo_graphic').width() * zoom_level) / this.zoom;
+    expected_width = (this.logo_graphic.width() * zoom_level) / this.zoom;
     if (expected_width > this.container.width()) {
       // if a center is not specified, then use the current center of the view
       if (!options.column) {
@@ -350,7 +352,7 @@ module.exports = view.extend({
   },
 
   scrollToColumn: function (num, animate) {
-    var half_view = ($(this.called_on).find('.logo_container').width() / 2),
+    var half_view = (this.logo_container.width() / 2),
     new_left = this.coordinatesFromColumn(num);
     this.scrollme.scroller.scrollTo(new_left - half_view, 0, animate);
   },

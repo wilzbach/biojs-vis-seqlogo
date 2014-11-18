@@ -1,50 +1,54 @@
+var $ = require("jbone");
+
 module.exports = function($el,logo, logo_graphic){
 
-  $el.find('.logo_settings_switch, .logo_settings .close').bind('click', function (e) {
+  $el.find('.logo_settings_switch, .logo_settings .close').on('click', function (e) {
     e.preventDefault();
     $('.logo_settings').toggle();
   });
 
-  $el.find('.logo_reset').bind('click', function (e) {
+  $el.find('.logo_reset').on('click', function (e) {
     e.preventDefault();
     logo.changeZoom({'target': logo.default_zoom});
   });
 
-  $el.find('.logo_change').bind('click', function (e) {
+  $el.find('.logo_change').on('click', function (e) {
     e.preventDefault();
   });
 
-  $el.find('.logo_zoomin').bind('click', function (e) {
+  $el.find('.logo_zoomin').on('click', function (e) {
     e.preventDefault();
     logo.changeZoom({'distance': 0.1, 'direction': '+'});
   });
 
-  $el.find('.logo_zoomout').bind('click', function (e) {
+  $el.find('.logo_zoomout').on('click', function (e) {
     e.preventDefault();
     logo.changeZoom({'distance': 0.1, 'direction': '-'});
   });
 
-  $el.find('.logo_scale').bind('change', function (e) {
+  $el.find('.logo_scale').on('change', function (e) {
     logo.toggleScale(this.value);
   });
 
-  $el.find('.logo_color').bind('change', function (e) {
+  $el.find('.logo_color').on('change', function (e) {
     logo.toggleColorscheme(this.value);
   });
 
-  $el.find('.logo_ali_map').bind('change', function (e) {
+  $el.find('.logo_ali_map').on('change', function (e) {
     logo.toggleAliMap(this.value);
   });
 
-  $el.find('.logo_position').bind('change', function () {
+  $el.find('.logo_position').on('change', function () {
     if (!this.value.match(/^\d+$/m)) {
       return;
     }
     logo.scrollToColumn(this.value, 1);
   });
 
-  logo_graphic.bind('dblclick', function (e) {
+  logo_graphic.on('dblclick', function (e) {
     // need to get coordinates of mouse click
+    console.log("dblclick", logo);
+
     offset = logo.logo_graphic.offset(),
     x = parseInt((e.pageX - offset.left), 10),
 
@@ -68,11 +72,11 @@ module.exports = function($el,logo, logo_graphic){
     return;
   });
 
-  $(document).bind($el.attr('id') + ".scrolledTo", function (e, left, top, zoom) {
+  $(document).on($el.attr('id') + ".scrolledTo", function (e, left, top, zoom) {
     logo.render({target: left});
   });
 
-  $(document).keydown(function (e) {
+  $(document).on('keydown', function (e) {
     if (!e.ctrlKey) {
       if (e.which === 61 || e.which === 107) {
         zoom += 0.1;

@@ -1,6 +1,7 @@
 var renderWithText = require("./render_with_text.js");
 var renderWithRect = require("./render_with_rects.js");
 var EasyScroller = require("../scroller/EasyScroller.js");
+var jbone = require("jbone");
 
 // the main render function that draws the logo based on the provided options.
 module.exports = function (options) {
@@ -10,8 +11,8 @@ module.exports = function (options) {
   options    = options || {};
   var zoom   = options.zoom || this.zoom,
   target = options.target || 1,
-  scaled = options.scaled || null,
-  parent_width = $(this.dom_element).parent().width(),
+  scaled = options.scaled || null;
+  var parent_width = this.dom_element.parent().attr('width'),
   max_canvas_width = 1,
   end = null,
   start = null,
@@ -78,14 +79,14 @@ module.exports = function (options) {
   if (target > this.total_width) {
     target = this.total_width;
   }
-  $(this.dom_element).attr({'width': this.total_width + 'px'}).css({width: this.total_width + 'px'});
+  this.dom_element.attr({'width': this.total_width + 'px'}).css({width: this.total_width + 'px'});
 
   var canvas_count = Math.ceil(this.total_width / this.canvas_width);
   this.columns_per_canvas = Math.ceil(this.canvas_width / this.zoomed_column);
 
 
   if (this.previous_zoom !== this.zoom) {
-    $(this.dom_element).find('canvas').remove();
+    this.dom_element.find('canvas').remove();
     this.previous_zoom = this.zoom;
     this.rendered = [];
   }
@@ -161,14 +162,14 @@ module.exports = function (options) {
 
 
 function attach_canvas(DOMid, height, width, id, canv_width) {
-  var canvas = $(DOMid).find('#canv_' + id);
+  var canvas = jbone(DOMid).find('#canv_' + id);
 
   if (!canvas.length) {
-    $(DOMid).append('<canvas class="canvas_logo" id="canv_' + id + '"  height="' + height + '" width="' + width + '" style="left:' + canv_width * id + 'px"></canvas>');
-    canvas = $(DOMid).find('#canv_' + id);
+    jbone(DOMid).append('<canvas class="canvas_logo" id="canv_' + id + '"  height="' + height + '" width="' + width + '" style="left:' + canv_width * id + 'px"></canvas>');
+    canvas = jbone(DOMid).find('#canv_' + id);
   }
 
-  $(canvas).attr('width', width).attr('height', height);
+  jbone(canvas).attr('width', width).attr('height', height);
 
   return canvas[0];
 }

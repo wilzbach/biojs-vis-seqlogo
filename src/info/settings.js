@@ -1,3 +1,5 @@
+var $ = require("jbone");
+
 module.exports = function(logo,options){
   var form = $('<form class="logo_form"><fieldset><label for="position">Column number</label>' +
                '<input type="text" name="position" class="logo_position"></input>' +

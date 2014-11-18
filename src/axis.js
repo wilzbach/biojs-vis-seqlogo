@@ -11,7 +11,7 @@ module.exports = {
     render_y_axis_label: function () {
       //attach a canvas for the y-axis
       this.dom_element.parent().before('<canvas class="logo_yaxis" height="'+this.options.height+'" width="55"></canvas>');
-      var canvas = $(this.called_on).find('.logo_yaxis'),
+      var canvas = this.called_on.find('.logo_yaxis'),
       top_pix_height = 0,
       bottom_pix_height = 0,
       top_height = Math.abs(this.data.max_height),
