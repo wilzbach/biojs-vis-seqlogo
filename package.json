@@ -1,7 +1,7 @@
 {
   "name": "biojs-vis-seqlogo",
-  "version": "0.0.1",
-  "description": "",
+  "version": "0.0.2",
+  "description": "A sequence logo visualizer",
   "main": "src/index.js",
   "dependencies": {
     "backbone-viewj": "^1.0.1",
@@ -46,7 +46,7 @@
     "css": [
       "/css/hmm.css"
     ],
-    "first": "example",
+    "first": "simple_example",
     "exposed": [
       "xhr"
     ]
@@ -54,6 +54,7 @@
   "keywords": [
     "hmm",
     "logo",
+    "seqlogo",
     "biojs"
   ]
 }
