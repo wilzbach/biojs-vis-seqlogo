@@ -27,7 +27,7 @@ module.exports = function (start, end, context_num, borders) {
       letters = column.length,
       j = 0;
       for(var j in column){
-        values = [j,letter];
+        values = [j,column[j]];
         if (values[1] > 0.01) {
           var letter_height = parseFloat(values[1]) / this.data.max_height,
           x_pos = x,
@@ -61,44 +61,55 @@ module.exports = function (start, end, context_num, borders) {
       mod = 10;
     }
 
-    if (i % mod === 0) {
-      // draw column dividers
-      draw_ticks(this.contexts[context_num], x + this.zoomed_column, this.height - 30, parseFloat(this.height), '#dddddd');
-      // draw top ticks
-      draw_ticks(this.contexts[context_num], x + this.zoomed_column, 0, 5);
+    if(this.options.positionMarker){
+      if (i % mod === 0) {
+        // draw column dividers
+        if(this.options.show_probs){
+          draw_ticks(this.contexts[context_num], x + this.zoomed_column, this.height - 30, parseFloat(this.height), '#dddddd');
+        }
+        // draw top ticks
+        draw_ticks(this.contexts[context_num], x + this.zoomed_column, 0, 5);
 
-      // if ali_coordinates exist and toggle is set then display the
-      // alignment coordinates and not the model coordinates.
-      if (this.display_ali_map) {
-        column_label = this.data.ali_map[i - 1];
-      } else {
-        column_label = column_num;
+        // if ali_coordinates exist and toggle is set then display the
+        // alignment coordinates and not the model coordinates.
+        if (this.display_ali_map) {
+          column_label = this.data.ali_map[i - 1];
+        } else {
+          column_label = column_num;
+        }
+        // draw column numbers
+        draw_column_number(this.contexts[context_num], x - 2,  10, this.zoomed_column, column_label, 10, true);
       }
-      // draw column numbers
-      draw_column_number(this.contexts[context_num], x - 2,  10, this.zoomed_column, column_label, 10, true);
+
     }
 
 
     // draw insert probabilities/lengths
-    draw_small_insert(
-      this.contexts[context_num],
-      x,
-      this.height - 42,
-      this.zoomed_column,
-      this.data.insert_probs[i - 1],
-      this.data.insert_lengths[i - 1],
-      this.data.delete_probs[i - 1],
-      this.show_inserts
-    );
-
-    // draw other dividers
-    if (this.show_inserts) {
-      draw_border(this.contexts[context_num], this.height - 45, this.total_width);
-    } else {
-      draw_border(this.contexts[context_num], this.height - 15, this.total_width);
+    if(this.options.show_probs){
+      draw_small_insert(
+        this.contexts[context_num],
+        x,
+        this.height - 42,
+        this.zoomed_column,
+        this.data.insert_probs[i - 1],
+        this.data.insert_lengths[i - 1],
+        this.data.delete_probs[i - 1],
+        this.show_inserts
+      );
     }
 
-    draw_border(this.contexts[context_num], 0, this.total_width);
+    if(this.options.show_probs){
+      // draw other dividers
+      if (this.show_inserts) {
+        draw_border(this.contexts[context_num], this.height - 45, this.total_width);
+      } else {
+        draw_border(this.contexts[context_num], this.height - 15, this.total_width);
+      }
+    }
+
+    if(this.options.border){
+      draw_border(this.contexts[context_num], 0, this.total_width);
+    }
 
     x += this.zoomed_column;
     column_num++;

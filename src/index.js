@@ -33,7 +33,9 @@ module.exports = view.extend({
     divider_step: 5,
     show_divider: false,
     border: false,
-    settings: false
+    settings: false,
+    scroller: true,
+    positionMarker: true,
   },
 
   loadDefault: function(options){
@@ -66,6 +68,11 @@ module.exports = view.extend({
 
     if(this.data.max_height == undefined){
      this.data.max_height = this.calcMaxHeight(this.data.heightArr); 
+    }
+
+    // only show insert when we actually have the data
+    if(!this.data.insert_probs || !this.data.delete_probs){
+      this.options.show_probs = false;
     }
 
     if (options.scaled_max) {

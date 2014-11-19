@@ -145,7 +145,7 @@ module.exports = function (options) {
   // we get a weird initial state where the canvas will bounce back to the
   // beginning the first time it is scrolled, because it thinks it has a
   // width of 0.
-  if (!this.scrollme) {
+  if (!this.scrollme && this.options.scroller) {
     this.scrollme = new EasyScroller(this.dom_element[0], {
       scrollingX: 1,
       scrollingY: 0,
