@@ -39,9 +39,9 @@ module.exports = function (options) {
 
   this.zoom = zoom;
 
-  end = this.end || this.data.height_arr.length;
+  end = this.end || this.data.heightArr.length;
   start = this.start || 1;
-  end     = (end > this.data.height_arr.length) ? this.data.height_arr.length : end;
+  end     = (end > this.data.heightArr.length) ? this.data.heightArr.length : end;
   end     = (end < start) ? start : end;
 
   start     = (start > end) ? end : start;
@@ -146,7 +146,7 @@ module.exports = function (options) {
   // beginning the first time it is scrolled, because it thinks it has a
   // width of 0.
   if (!this.scrollme) {
-    this.scrollme = new EasyScroller($(this.dom_element)[0], {
+    this.scrollme = new EasyScroller(this.dom_element[0], {
       scrollingX: 1,
       scrollingY: 0,
       eventTarget: this.called_on

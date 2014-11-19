@@ -31,7 +31,7 @@ module.exports = function (start, end, context_num, fontsize) {
       this.contexts[context_num].fillStyle = '#cccccc';
       this.contexts[context_num].fillRect(x, 10, this.zoomed_column, this.height - 40);
     } else {
-      var column = this.data.height_arr[i - 1],
+      var column = this.data.heightArr[i - 1],
       col_positions = [];
       if (column) {
         var previous_height = 0,

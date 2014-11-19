@@ -46,7 +46,7 @@ module.exports = view.extend({
     this.alphabet = options.data.alphabet || 'dna';
 
     this.start = options.start;
-    //this.end = options.end || this.data.height_arr.length;
+    //this.end = options.end || this.data.heightArr.length;
     this.zoom = parseFloat(options.zoom) || 0.4;
     this.default_zoom = this.zoom;
 
@@ -63,6 +63,10 @@ module.exports = view.extend({
     // keeps track of which canvas elements have been drawn and which ones haven't.
     this.rendered = [];
     this.previous_zoom = 0;
+
+    if(this.data.max_height == undefined){
+     this.data.max_height = this.calcMaxHeight(this.data.heightArr); 
+    }
 
     if (options.scaled_max) {
       this.data.max_height = options.data.max_height_obs || this.data.max_height || 2;
@@ -128,7 +132,6 @@ module.exports = view.extend({
     */
 
   },
-
   initDivs: function(){
     var logo_graphic = mk("div");
     logo_graphic.className = "logo_graphic";
@@ -136,6 +139,7 @@ module.exports = view.extend({
 
     var container = mk("div");
     container.className = "logo_container";
+    container.style.height = this.height;
     this.container = jbone(container);
 
     this.container.append(logo_graphic);
@@ -356,6 +360,18 @@ module.exports = view.extend({
     new_left = this.coordinatesFromColumn(num);
     this.scrollme.scroller.scrollTo(new_left - half_view, 0, animate);
   },
+  calcMaxHeight: function(columns){
+    // loops over all columns and return the max height seen 
+    return columns.reduce(function(m,c){
+      var col = 0;
+      for(var k in c){
+        col += c[k];
+      }
+     return col > m ? col : m;
+    },0);
+  }
+
+
 });
 
 var mk = function(name){

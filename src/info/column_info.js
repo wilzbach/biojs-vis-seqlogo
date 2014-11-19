@@ -25,7 +25,7 @@ module.exports = function(inst){
 
     if (logo.data.height_calc && logo.data.height_calc === 'score') {
       height_header = 'Score';
-      col_data = logo.data.height_arr[col - 1].slice(0).reverse();
+      col_data = logo.data.heightArr[col - 1].slice(0).reverse();
     } else {
       col_data = logo.data.probs_arr[col - 1].slice(0).reverse();
     }
