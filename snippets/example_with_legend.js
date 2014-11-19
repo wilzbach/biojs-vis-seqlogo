@@ -1,4 +1,3 @@
-// if you don't specify a html file, the sniper will generate a div
 var app = require("biojs-vis-seqlogo");
 var xhr = require("xhr");
 xhr("./data/example.json", function(err,resp,body){
