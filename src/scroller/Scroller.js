@@ -13,6 +13,7 @@
  */
 
 var core = require("./core.js");
+var $ = require("jbone");
 
 var Scroller;
 

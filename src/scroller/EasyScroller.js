@@ -1,4 +1,5 @@
 var Scroller = require("./Scroller.js");
+var $ = require("jbone");
 
 var EasyScroller = function(content, options) {
 
@@ -90,13 +91,13 @@ EasyScroller.prototype.bindEvents = function() {
 	var that = this;
 
 	// reflow handling
-	$(window).bind("resize", function() {
+	$(window).on("resize", function() {
 		that.reflow();
 	});
 
   // added this here, not ideal, but it makes sure that the logo will
   // scroll correctly when the model tab is revealed.
-  $('#modelTab').bind('click', function() {
+  $('#modelTab').on('click', function() {
 		that.reflow();
   });
 
@@ -133,7 +134,7 @@ EasyScroller.prototype.bindEvents = function() {
 
 		var mousedown = false;
 
-		$(this.container).bind("mousedown", function(e) {
+		$(this.container).on("mousedown", function(e) {
 
 			if (e.target.tagName.match(/input|textarea|select/i)) {
 				return;
@@ -150,7 +151,7 @@ EasyScroller.prototype.bindEvents = function() {
 
 		});
 
-		$(document).bind("mousemove", function(e) {
+		$(document).on("mousemove", function(e) {
 
 			if (!mousedown) {
 				return;
@@ -165,7 +166,7 @@ EasyScroller.prototype.bindEvents = function() {
 
 		});
 
-		$(document).bind("mouseup", function(e) {
+		$(document).on("mouseup", function(e) {
 
 			if (!mousedown) {
 				return;
@@ -177,7 +178,7 @@ EasyScroller.prototype.bindEvents = function() {
 
 		});
 
-		$(this.container).bind("mousewheel", function(e) {
+		$(this.container).on("mousewheel", function(e) {
 			if(that.options.zooming) {
 				that.scroller.doMouseZoom(e.wheelDelta, new Date().getTime(), e.pageX, e.pageY);
 				e.preventDefault();
