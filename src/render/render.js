@@ -17,9 +17,11 @@ module.exports = function (options) {
   start = null,
   i = 0;
 
+  /*
   if (target === this.previous_target) {
     return;
   }
+  */
 
   this.previous_target = target;
 
@@ -113,7 +115,7 @@ module.exports = function (options) {
 
     if (target < canv_end + (canv_end / 2) && target > canv_start - (canv_start / 2)) {
       // Check that we aren't redrawing the canvas and if not, then attach it and draw.
-      if (this.rendered[i] !== 1) {
+      //if (this.rendered[i] !== 1) {
 
         this.canvases[i] = attach_canvas(this.dom_element, this.height, adjusted_width, i, max_canvas_width);
         this.contexts[i] = this.canvases[i].getContext('2d');
@@ -133,8 +135,8 @@ module.exports = function (options) {
         } else {
           renderWithRect.call(this,split_start, split_end, i);
         }
-        this.rendered[i] = 1;
-      }
+        //this.rendered[i] = 1;
+      //}
     }
 
   }

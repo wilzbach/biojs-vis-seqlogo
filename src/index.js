@@ -93,7 +93,6 @@ module.exports = view.extend({
       }
     }
   },
-
   initialize: function(options) {
     if (!canvasSupport()) {
       this.el.textContent = "Your browser doesn't support canvas.";
@@ -177,6 +176,11 @@ module.exports = view.extend({
   render: function(){
     render.call(this); 
     return this;
+  },
+
+  changeColors: function(colors){
+    this.colors = colors;
+    this.buildAlphabet();
   },
 
   buildAlphabet: function(){
