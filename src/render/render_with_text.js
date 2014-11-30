@@ -64,10 +64,15 @@ module.exports = function (start, end, context_num, fontsize) {
         //for (j = letters; j >= 0; j--) {
         for(var j in column){
           if (col_positions[j] && this.letters[j]) {
-            if (this.colorscheme === 'consensus') {
-              color = this.cmap[i - 1][j] || "#7a7a7a";
-            } else {
-              color = null;
+
+            if(this.colorscheme === 'dynamic'){
+              color = this.colors.getColor(values[0], {pos: i} )
+            }else{
+              if (this.colorscheme === 'consensus') {
+                color = this.cmap[i - 1][j] || "#7a7a7a";
+              } else {
+                color = null;
+              }
             }
             this.letters[j].draw(this.contexts[context_num], col_positions[j][0], col_positions[j][1], col_positions[j][2], col_positions[j][3], color);
           }

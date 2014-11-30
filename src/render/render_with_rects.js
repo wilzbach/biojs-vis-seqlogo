@@ -16,6 +16,7 @@ module.exports = function (start, end, context_num, borders) {
   bottom_pix_height = this.info_content_height - top_pix_height,
   mod = 10;
 
+
   for (i = start; i <= end; i++) {
     if (this.data.mmline && this.data.mmline[i - 1] === 1) {
       this.contexts[context_num].fillStyle = '#cccccc';
@@ -35,10 +36,15 @@ module.exports = function (start, end, context_num, borders) {
           y_pos = (this.info_content_height - 2) - previous_height - glyph_height,
           color = null;
 
-          if(this.colorscheme === 'consensus') {
-            color = this.cmap[i - 1][values[0]] || "#7a7a7a";
-          } else {
-            color = this.colors[values[0]];
+
+          if(this.colorscheme === 'dynamic'){
+            color = this.colors.getColor(values[0], {pos: i} )
+          }else{
+            if(this.colorscheme === 'consensus') {
+              color = this.cmap[i - 1][values[0]] || "#7a7a7a";
+            } else {
+              color = this.colors[values[0]];
+            }
           }
 
           if (borders) {

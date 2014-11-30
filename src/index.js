@@ -67,7 +67,7 @@ module.exports = view.extend({
     this.previous_zoom = 0;
 
     if(this.data.max_height == undefined){
-     this.data.max_height = this.calcMaxHeight(this.data.heightArr); 
+      this.data.max_height = this.calcMaxHeight(this.data.heightArr); 
     }
 
     // only show insert when we actually have the data
@@ -82,14 +82,14 @@ module.exports = view.extend({
     }
 
     if(options.colors){
-      this.colors = options.colors;
+      this.changeColors(options.colors);
     }else{
       if (this.alphabet === 'aa') {
         this.aa_colors = require("./colors/aa.js");
-        this.colors = this.aa_colors;
+        this.changeColors(this.aa_colors);
       }else{
         this.dna_colors = require("./colors/dna.js");
-        this.colors = this.dna_colors;
+        this.changeColors(this.dna_colors);
       }
     }
   },
@@ -106,19 +106,18 @@ module.exports = view.extend({
     _.extend(this.options,options);
     var opt = this.options;
     this.loadDefault(opt);
-    this.buildAlphabet();
 
     if(!this.options.show_probs){
       this.info_content_height = this.height;
     }else{
-    // turn off the insert rows if the hmm used the observed or weighted processing flags.
-    if (this.data.processing && /^observed|weighted/.test(this.data.processing)) {
-      this.show_inserts = 0;
-      this.info_content_height = this.height - 14;
-    } else {
-      this.show_inserts = 1;
-      this.info_content_height = this.height - 44;
-    }
+      // turn off the insert rows if the hmm used the observed or weighted processing flags.
+      if (this.data.processing && /^observed|weighted/.test(this.data.processing)) {
+        this.show_inserts = 0;
+        this.info_content_height = this.height - 14;
+      } else {
+        this.show_inserts = 1;
+        this.info_content_height = this.height - 44;
+      }
     }
     this.$el = jbone(this.el);
 
@@ -131,11 +130,11 @@ module.exports = view.extend({
 
     eventListener(this.$el,this, this.logo_graphic);
     /*
-    if (opt.columnInfo) {
-      var columnInfo = require("./info/column_info.js");
-      columnInfo(this);
-    }
-    */
+       if (opt.columnInfo) {
+       var columnInfo = require("./info/column_info.js");
+       columnInfo(this);
+       }
+       */
 
   },
   initDivs: function(){
@@ -180,25 +179,37 @@ module.exports = view.extend({
 
   changeColors: function(colors){
     this.colors = colors;
+    var bUseColorObject = (colors != undefined && colors.type != undefined);
+    if(bUseColorObject){
+      this.colorscheme = "dynamic";
+    }
     this.buildAlphabet();
   },
 
   buildAlphabet: function(){
     /*
-    if (this.alphabet === 'aa') {
-      var probs_arr = this.data.probs_arr;
-      if (probs_arr) {
-        var cc = new ConsensusColors();
-        this.cmap = cc.color_map(probs_arr);
-      }
-    }
-    */
+       if (this.alphabet === 'aa') {
+       var probs_arr = this.data.probs_arr;
+       if (probs_arr) {
+       var cc = new ConsensusColors();
+       this.cmap = cc.color_map(probs_arr);
+       }
+       }
+       */
 
     //build the letter canvases
     this.letters = {};
-    for (var letter in this.colors) {
-      if (this.colors.hasOwnProperty(letter)) {
-        var loptions = {color: this.colors[letter]};
+    var colors = this.colors;
+    if(this.colorscheme == "dynamic"){
+      var tColors = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('');
+      colors = {};
+      tColors.forEach(function(e){
+        colors[e] = "";
+      });
+    }
+    for (var letter in colors) {
+      if (colors.hasOwnProperty(letter)) {
+        var loptions = {color: colors[letter]};
         this.letters[letter] = new Letter(letter, loptions);
       }
     }
@@ -378,7 +389,7 @@ module.exports = view.extend({
       for(var k in c){
         col += c[k];
       }
-     return col > m ? col : m;
+      return col > m ? col : m;
     },0);
   }
 
