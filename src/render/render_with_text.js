@@ -66,7 +66,7 @@ module.exports = function (start, end, context_num, fontsize) {
           if (col_positions[j] && this.letters[j]) {
 
             if(this.colorscheme === 'dynamic'){
-              color = this.colors.getColor(values[0], {pos: i} )
+              color = this.colors.getColor(values[0], {pos: i - 1} )
             }else{
               if (this.colorscheme === 'consensus') {
                 color = this.cmap[i - 1][j] || "#7a7a7a";
