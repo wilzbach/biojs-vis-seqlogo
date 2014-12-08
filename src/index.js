@@ -35,7 +35,7 @@ module.exports = view.extend({
     border: false,
     settings: false,
     scroller: true,
-    positionMarker: true,
+    positionMarker: true
   },
 
   loadDefault: function(options){
