@@ -82,6 +82,7 @@ module.exports = function (options) {
   }
   this.dom_element.attr({'width': this.total_width + 'px'}).css({width: this.total_width + 'px'});
 
+  this.canvas_width = this.total_width;
   var canvas_count = Math.ceil(this.total_width / this.canvas_width);
   this.columns_per_canvas = Math.ceil(this.canvas_width / this.zoomed_column);
 
