@@ -43,7 +43,7 @@ module.exports = function (start, end, context_num, fontsize) {
         for(var j in column){
           var letter = column[j],
           values = [j,letter];
-          x_pos = x + (this.zoomed_column / 2),
+          var x_pos = x + (this.zoomed_column / 2),
           letter_height = null;
 
           // we don't render anything with a value between 0 and 0.01. These
